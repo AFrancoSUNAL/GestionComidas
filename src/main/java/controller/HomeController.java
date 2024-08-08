@@ -9,7 +9,7 @@ import model.Context;
  */
 public class HomeController {
     
-    public Context context;
+    public static Context context;
     
     public HomeController () throws SQLException {
         context = new Context();
