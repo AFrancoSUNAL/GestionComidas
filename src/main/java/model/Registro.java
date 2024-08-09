@@ -6,23 +6,19 @@ package model;
  */
 public class Registro {
     
-    private int id; 
-    private Cliente usuario;
+    private final int id; 
+    private final Usuarios usuario;
 
-    public Registro(int id, Cliente usuario) {
+    public Registro(int id, Usuarios usuario) {
         this.id = id;
         this.usuario = usuario;
-    }
-    
-    public void crearRegistro(){
-        
     }
 
     public int getId() {
         return id;
     }
 
-    public Cliente getUsuario() {
+    public Usuarios getUsuario() {
         return usuario;
     }
     

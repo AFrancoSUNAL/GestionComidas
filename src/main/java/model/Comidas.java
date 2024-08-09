@@ -6,11 +6,11 @@ package model;
  */
 public class Comidas {
     
-    private int id;
-    private String nombre;
-    private String tipo;
-    private float valor;
-    private int cantDisponible;
+    private final int id;
+    private final String nombre;
+    private final String tipo;
+    private final float valor;
+    private final int cantDisponible;
 
     public Comidas(int id, String nombre, String tipo, float valor, int cantDisponible) {
         this.id = id;

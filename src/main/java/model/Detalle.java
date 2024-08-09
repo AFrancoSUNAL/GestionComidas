@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -8,31 +8,50 @@ import java.util.ArrayList;
  */
 public class Detalle {
     
-    private ArrayList<Comidas> comidas;
-    private int cantidad;
+    private final int id;
+    private final int registro;
+    private final HashMap<Comidas, Integer> comidas;
+    private final int cantidadTotal;
     private float total;
 
-    public Detalle(ArrayList<Comidas> comidas) {
+    public Detalle(int id, int registro, HashMap<Comidas, Integer> comidas) {
+        this.id = id;
+        this.registro = registro;
         this.comidas = comidas;
-        this.cantidad = comidas.size();
+        this.cantidadTotal = comidas.size();
         calcTotal();
+        
     }
     
-    private void calcTotal(){
-        for(Comidas comida : comidas) {
-            total += comida.getValor();
-        }
+    private void calcTotal() {
+        comidas.forEach((value, key) -> {
+            this.total += value.getValor();
+        });
+    }    
+    
+    public void agregarComida(Comidas comida, int cantidad) {
+        comidas.put(comida, cantidad);
     }
 
-    public ArrayList<Comidas> getComidas() {
+    public int getId() {
+        return id;
+    }
+
+    public int getRegistro() {
+        return registro;
+    }
+
+    public HashMap<Comidas, Integer> getComidas() {
         return comidas;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public int getCantidadTotal() {
+        return cantidadTotal;
+    }
+
+    public float getTotal() {
+        return total;
     }
     
-    public float getTotal(){
-        return total;
-    }    
+    
 }

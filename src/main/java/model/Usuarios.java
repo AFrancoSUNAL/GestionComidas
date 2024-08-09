@@ -4,15 +4,15 @@ package model;
  *
  * @author Andres Felipe Franco
  */
-public class Cliente {
+public class Usuarios {
     
-    private int id;
-    private String nombre;
-    private String usuario;
-    private String telefono;
-    private String correo;
+    private final int id;
+    private final String nombre;
+    private final String usuario;
+    private final String telefono;
+    private final String correo;
 
-    public Cliente(int id, String nombre, String usuario, String telefono, String correo) {
+    public Usuarios(int id, String nombre, String usuario, String telefono, String correo) {
         this.id = id;
         this.nombre = nombre;
         this.usuario = usuario;
@@ -39,7 +39,5 @@ public class Cliente {
     public String getCorreo() {
         return correo;
     }
-    
-    
     
 }
