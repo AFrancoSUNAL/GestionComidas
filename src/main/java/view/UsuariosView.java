@@ -12,6 +12,7 @@ import model.Usuarios;
 public class UsuariosView extends javax.swing.JInternalFrame {
  
     private DefaultTableModel model;
+    private static UsuariosController controller = new UsuariosController();
     
     public UsuariosView() {
         initComponents();
@@ -37,6 +38,7 @@ public class UsuariosView extends javax.swing.JInternalFrame {
         btnCrear = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -54,6 +56,11 @@ public class UsuariosView extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbUsuarios);
 
         jLabel1.setText("Id:");
@@ -76,11 +83,23 @@ public class UsuariosView extends javax.swing.JInternalFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
             }
         });
 
@@ -112,23 +131,30 @@ public class UsuariosView extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                             .addComponent(txtUsuario))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(82, 82, 82))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(82, 82, 82))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(btnLimpiar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lbId))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(lbId)
+                            .addComponent(btnLimpiar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,9 +171,9 @@ public class UsuariosView extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addGap(0, 38, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEditar)
@@ -160,7 +186,7 @@ public class UsuariosView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        new UsuariosController().createUsuario(new Usuarios(0, 
+        controller.createUsuario(new Usuarios(0, 
                                                             txtNombre.getText(),
                                                             txtUsuario.getText(),
                                                             txtTelefono.getText(),
@@ -171,11 +197,39 @@ public class UsuariosView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if(JOptionPane.showConfirmDialog(new Index(), "¿Estas seguro de borrar el usuario?", "Advertencia", JOptionPane.WARNING_MESSAGE) == 1){
-            new UsuariosController().deleteUsuario(Integer.parseInt(lbId.getText()));
+        if(JOptionPane.showConfirmDialog(new Index(), "¿Estas seguro de borrar el usuario?", "Advertencia", JOptionPane.WARNING_MESSAGE) == 0){
+            controller.deleteUsuario(Integer.parseInt(lbId.getText()));
+            clean();
+            cargarTabla();
         }
-        cargarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tbUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuariosMouseClicked
+        
+        String[] rowValues = new String[5];
+        for(int i = 0; i < tbUsuarios.getColumnCount(); i++) {
+             tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), i);
+             rowValues[i] = tbUsuarios.getValueAt(tbUsuarios.getSelectedRow(), i) + "";
+        }
+        lbId.setText(rowValues[0]);
+        txtNombre.setText(rowValues[1]);
+        txtUsuario.setText(rowValues[2]);
+        txtTelefono.setText(rowValues[3]);
+        txtCorreo.setText(rowValues[4]);
+        
+    }//GEN-LAST:event_tbUsuariosMouseClicked
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        clean();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if(JOptionPane.showConfirmDialog(new Index(), "¿Estas seguro de editar este usuario?", "Advertencia", JOptionPane.WARNING_MESSAGE) == 0){
+            controller.updateUsuario(Integer.parseInt(lbId.getText()), txtNombre.getText(), txtUsuario.getText(), txtTelefono.getText(), txtCorreo.getText());
+            clean();
+            cargarTabla();
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void cargarTabla() {
         model = new DefaultTableModel() {
@@ -192,7 +246,7 @@ public class UsuariosView extends javax.swing.JInternalFrame {
         model.setColumnIdentifiers(columnNames);
         tbUsuarios.setModel(model);
         
-        for(Usuarios usuario : new UsuariosController().getUsuarios()) {
+        for(Usuarios usuario : controller.getUsuarios()) {
             model.addRow(new Object[]{
                 usuario.getId(),
                 usuario.getNombre(),
@@ -204,6 +258,7 @@ public class UsuariosView extends javax.swing.JInternalFrame {
     }
     
     private void clean(){
+        lbId.setText("");
         txtNombre.setText("");
         txtUsuario.setText("");
         txtTelefono.setText("");
@@ -214,6 +269,7 @@ public class UsuariosView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

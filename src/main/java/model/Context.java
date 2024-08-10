@@ -19,7 +19,7 @@ public class Context {
         String username = "root";
         String password = "";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, password);
             System.out.println("conexión exitosa");
         }catch(SQLException ex) {

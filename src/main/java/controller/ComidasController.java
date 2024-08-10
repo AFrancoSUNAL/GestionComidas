@@ -6,32 +6,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import model.Usuarios;
+import model.Comidas;
 import view.Index;
 
 /**
  *
  * @author Andres Felipe Franco
  */
-public class UsuariosController {
+public class ComidasController {
     
     private final Connection context = HomeController.model.conn;
     
-    public ArrayList<Usuarios> getUsuarios() {
+    public ArrayList<Comidas> getComidas() {
         
-        ArrayList<Usuarios> datos = new ArrayList<>();
+        ArrayList<Comidas> datos = new ArrayList<>();
         
         try{
             PreparedStatement consulta;
-            consulta = context.prepareStatement("SELECT * FROM usuarios");
+            consulta = context.prepareStatement("SELECT * FROM comidas");
             
             ResultSet resultado = consulta.executeQuery();
             while(resultado.next()){
-                datos.add(new Usuarios(resultado.getInt("id"),
+                datos.add(new Comidas(resultado.getInt("id"),
                                        resultado.getString("nombre"),
-                                       resultado.getString("usuario"),
-                                       resultado.getString("telefono"),
-                                       resultado.getString("correo")
+                                       resultado.getString("tipo"),
+                                       resultado.getFloat("valor"),
+                                       resultado.getInt("cantDisponible")
                 ));
             }
         } catch (SQLException ex) {
@@ -41,52 +41,52 @@ public class UsuariosController {
         return datos;
     }
     
-    public void createUsuario(Usuarios usuario) {
+    public void createComida(Comidas comida) {
         
         try {
             PreparedStatement consulta;
-            consulta = context.prepareStatement("INSERT INTO usuarios (nombre, usuario, telefono, correo) VALUES (?, ?, ?, ?)");
-            consulta.setString(1, usuario.getNombre());
-            consulta.setString(2, usuario.getUsuario());
-            consulta.setString(3, usuario.getTelefono());
-            consulta.setString(4, usuario.getCorreo());
+            consulta = context.prepareStatement("INSERT INTO comidas (nombre, tipo, valor, cantDisponible) VALUES (?, ?, ?, ?)");
+            consulta.setString(1, comida.getNombre());
+            consulta.setString(2, comida.getTipo());
+            consulta.setFloat(3, comida.getValor());
+            consulta.setInt(4, comida.getCantDisponible());
             
             consulta.executeUpdate();
-            JOptionPane.showMessageDialog(new Index(), "Usuario creado con exito");
+            JOptionPane.showMessageDialog(new Index(), "Comida creada con exito");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(new Index(), ex, "Database error", JOptionPane.ERROR_MESSAGE);
         }
         
     }
     
-    public void deleteUsuario(int id) {
+    public void deleteComida(int id) {
         
         try {
             PreparedStatement consulta;
-            consulta = context.prepareStatement("DELETE FROM usuarios WHERE id = ?");
+            consulta = context.prepareStatement("DELETE FROM comidas WHERE id = ?");
             consulta.setInt(1, id);
             
             consulta.executeUpdate();
-            JOptionPane.showMessageDialog(new Index(), "Usuario eliminado");
+            JOptionPane.showMessageDialog(new Index(), "Comida eliminada");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(new Index(), ex, "Database error", JOptionPane.ERROR_MESSAGE);
         }
         
     }
     
-    public void updateUsuario(int id, String nombre, String usuario, String telefono, String correo) {
+    public void updateComida(int id, String nombre, String tipo, Float valor, int cantDisponible) {
         
         try {
             PreparedStatement consulta;
-            consulta = context.prepareStatement("UPDATE usuarios SET nombre = ?, usuario = ?, telefono = ?, correo = ? WHERE id = ?");
+            consulta = context.prepareStatement("UPDATE comidas SET nombre = ?, tipo = ?, valor = ?, cantDisponible = ? WHERE id = ?");
             consulta.setString(1, nombre);
-            consulta.setString(2, usuario);
-            consulta.setString(3, telefono);
-            consulta.setString(4, correo);
+            consulta.setString(2, tipo);
+            consulta.setFloat(3, valor);
+            consulta.setInt(4, cantDisponible);
             consulta.setInt(5, id);
             
             consulta.executeUpdate();
-            JOptionPane.showMessageDialog(new Index(), "Usuario editado");
+            JOptionPane.showMessageDialog(new Index(), "Comida editada");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(new Index(), ex, "Database error", JOptionPane.ERROR_MESSAGE);
         }
